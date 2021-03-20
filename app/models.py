@@ -13,7 +13,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(150), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
+    story = db.relationship('Story', backref='story_author', lazy=True)
+    chapter = db.relationship('Chapter', backref='chapter_author', lazy=True)
 
     def __init__(self, username, email, password):
         self.username = username
@@ -32,20 +33,16 @@ class User(db.Model, UserMixin):
         }
 
 
-
-
-
-class Post(db.Model):
+class Story(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
-    content = db.Column(db.String(300))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __init__(self, title, content, user_id):
+    def __init__(self, title, user_id, chapter_title, content):
         self.title = title
-        self.content = content
         self.user_id = user_id
+        first_chapter = Chapter(chapter_title, content, user_id)
 
     def __repr__(self):
         return f'<Post: {self.title}>'
@@ -58,9 +55,36 @@ class Post(db.Model):
         return {
             'id':self.id,
             'title':self.title,
+            'date_created': self.date_created,
+            'user_id': self.user_id,
+            'username': self.user_id.story_author.username,  #find better code for this
+            'date_created': self.date_created
+        }
+
+
+class Chapter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    content = db.Column(db.String(300))
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    story_id = db.Column(db.Integer, db.ForeignKey('story.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __init__(self, title, content, user_id):
+        self.title = title
+        self.content = content
+        self.user_id = user_id
+
+    def __repr__(self):
+        return f'<Chapter: {self.title}>'
+
+    def to_dict(self):
+        return {
+            'id':self.id,
+            'title':self.title,
             'content':self.content,
             'date_created': self.date_created,
             'user_id': self.user_id,
-            'username': username,
+            'username': self.chapter_author.username,
             'date_created': self.date_created
         }

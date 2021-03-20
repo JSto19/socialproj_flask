@@ -3,6 +3,6 @@ Antonio - React, Views/css
 Josh - Flask, Blueprints
 Greg - Flask, app pys and debug
     database: users , story_templates, Main_post_id, offspring_ids
-    
+    present all the info in JSON format
 Kateri - React, app js, components
 
