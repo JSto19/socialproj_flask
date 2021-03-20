@@ -2,5 +2,7 @@ Improve is a site where users can create stories with one another.  Once a user 
 Antonio - React, Views/css
 Josh - Flask, Blueprints
 Greg - Flask, app pys and debug
+    database: users , story_templates, Main_post_id, offspring_ids
+    
 Kateri - React, app js, components
 
