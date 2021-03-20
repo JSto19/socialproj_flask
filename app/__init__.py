@@ -28,8 +28,8 @@ def create_app(config_class=Config):
         from app.blueprints.auth import bp as auth
         app.register_blueprint(auth)
 
-        from app.blueprints.posts import bp as posts
-        app.register_blueprint(posts)
+        from app.blueprints.story import bp as story
+        app.register_blueprint(story)
 
         from . import routes
 
