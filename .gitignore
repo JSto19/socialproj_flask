@@ -1,3 +1,5 @@
 venv
 SP
 .env
+__pycache__/
+

@@ -1,8 +1,9 @@
-FLASK_APP = run.py
-FLASK_ENV = development
+from app import create_app, db
+from app.models import User, Story, Chapter
+# from app.blueprints.shop.models import Product
 
-DATABASE_URL = postgres://nsvvydxy:lVgMMRJCEheXQesuB_nBTKgs8DlGAyfm@queenie.db.elephantsql.com:5432/nsvvydxy
+app = create_app()
 
-SENDGRID_API_KEY = SfsYhCS2REK4xpOzPzrj4w
-MAIL_DEFAULT_SENDER = acukateri@gmail.com
-
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db}
