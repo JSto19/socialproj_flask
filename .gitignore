@@ -2,4 +2,6 @@ venv
 SP
 .env
 __pycache__/
+migrations
+
 

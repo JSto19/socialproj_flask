@@ -37,6 +37,7 @@ class Story(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    story = db.relationship('Chapter', backref='story_chapter', lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __init__(self, title, user_id, chapter_title, content):
@@ -47,16 +48,12 @@ class Story(db.Model):
         return f'<Post: {self.title}>'
 
     def to_dict(self):
-        users = User.query.all()
-        for i in users:
-            if i.id == self.user_id:
-                username = i.username
         return {
             'id':self.id,
             'title':self.title,
             'date_created': self.date_created,
             'user_id': self.user_id,
-            'username': self.story_author.username,  #find better code for this
+            'username': self.story_author.username
         }
 
 
@@ -83,7 +80,9 @@ class Chapter(db.Model):
             'title':self.title,
             'content':self.content,
             'date_created': self.date_created,
-            'user_id': self.user_id,
+            'story_id': self.story_chapter.id,
+            'story_title': self.story_chapter.title,
+            'user_id': self.chapter_author.id,
             'username': self.chapter_author.username,
             'date_created': self.date_created
         }
