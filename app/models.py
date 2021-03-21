@@ -42,7 +42,6 @@ class Story(db.Model):
     def __init__(self, title, user_id, chapter_title, content):
         self.title = title
         self.user_id = user_id
-        first_chapter = Chapter(chapter_title, content, user_id)
 
     def __repr__(self):
         return f'<Post: {self.title}>'
@@ -57,8 +56,7 @@ class Story(db.Model):
             'title':self.title,
             'date_created': self.date_created,
             'user_id': self.user_id,
-            'username': self.user_id.story_author.username,  #find better code for this
-            'date_created': self.date_created
+            'username': self.story_author.username,  #find better code for this
         }
 
 
@@ -70,9 +68,10 @@ class Chapter(db.Model):
     story_id = db.Column(db.Integer, db.ForeignKey('story.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __init__(self, title, content, user_id):
+    def __init__(self, title, content, user_id, story_id):
         self.title = title
         self.content = content
+        self.story_id = story_id
         self.user_id = user_id
 
     def __repr__(self):
