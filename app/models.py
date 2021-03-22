@@ -32,6 +32,23 @@ class User(db.Model, UserMixin):
             'password': self.password,
         }
 
+class Prompts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    prompt = db.Column(db.String(200))
+
+    def __init__(self, title, prompt):
+        self.title = title
+        self.prompt = prompt
+
+    def to_dict(self):
+        return {
+            'id':self.id,
+            'title':self.title,
+            'date_created': self.date_created,
+            'prompt': self.prompt
+        }
+
 
 class Story(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,7 +57,7 @@ class Story(db.Model):
     story = db.relationship('Chapter', backref='story_chapter', lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __init__(self, title, user_id, chapter_title, content):
+    def __init__(self, title, user_id):
         self.title = title
         self.user_id = user_id
 
