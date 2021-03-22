@@ -30,9 +30,13 @@ def story():
 
 @app.route('/stories/<int:id>')
 def single_story(id):
+    id=id
     s = Story.query.get_or_404(id)
-    c = Chapter.query.get_or_404(id)
-    return jsonify([c.to_dict()])
+    # c = Chapter.query.filter(Chapter.story_id == id)
+    # print("BREAK!!!!")
+    # print(c)
+    # print("BREAK!!!!")
+    return jsonify([s.to_dict()])
 
 @app.route('/chapter')
 def chapter():
