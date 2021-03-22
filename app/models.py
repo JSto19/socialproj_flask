@@ -36,17 +36,19 @@ class Prompts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     prompt = db.Column(db.String(200))
+    img_url = db.Column(db.String(500))
 
-    def __init__(self, title, prompt):
+    def __init__(self, title, prompt, img_url):
         self.title = title
         self.prompt = prompt
+        self.img_url = img_url
 
     def to_dict(self):
         return {
             'id':self.id,
             'title':self.title,
-            'date_created': self.date_created,
-            'prompt': self.prompt
+            'prompt': self.prompt,
+            'img_url': self.img_url
         }
 
 

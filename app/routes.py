@@ -25,14 +25,18 @@ def single_prompt(id):
 
 @app.route('/stories')
 def story():
-
     story = Story.query.all()
     return jsonify([s.to_dict() for s in story])
 
 @app.route('/stories/<int:id>')
 def single_story(id):
+    id=id
     s = Story.query.get_or_404(id)
-    return jsonify(s.to_dict())
+    # c = Chapter.query.filter(Chapter.story_id == id)
+    # print("BREAK!!!!")
+    # print(c)
+    # print("BREAK!!!!")
+    return jsonify([s.to_dict()])
 
 @app.route('/chapter')
 def chapter():
