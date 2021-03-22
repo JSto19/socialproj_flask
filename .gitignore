@@ -3,3 +3,5 @@ SP
 .env
 __pycache__/
 
+env/
+migrations/
