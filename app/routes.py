@@ -25,6 +25,7 @@ def single_prompt(id):
 
 @app.route('/stories')
 def story():
+
     story = Story.query.all()
     return jsonify([s.to_dict() for s in story])
 

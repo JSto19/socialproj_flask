@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    title = "Kekambas Blog | REGISTER"
+    title = "Improv | REGISTER"
     form = UserInfoForm()
     if request.method == 'POST' and form.validate():
         username = form.username.data
@@ -26,8 +26,8 @@ def register():
 
         # Send email to new user
         msg = Message(f'Welcome, {username}', [email])
-        msg.body = "Thank you for signing up for the Kekambas blog. I hope you enjoy our app!"
-        msg.html = "<p>Thank you so much for signing up for the Kekambas blog. I hope you enjoy our app!</p>"
+        msg.body = "Thank you for signing up for the Improv. I hope you enjoy our app!"
+        msg.html = "<p>Thank you so much for signing up for the Improv. I hope you enjoy our app!</p>"
 
         mail.send(msg)
 
@@ -38,7 +38,7 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    title = "Kekambas Blog | LOGIN"
+    title = "Improv | LOGIN"
     form = LoginForm()
     if request.method == 'POST' and form.validate():
         username = form.username.data
@@ -70,5 +70,5 @@ def logout():
 @auth.route('/myinfo')
 @login_required
 def myinfo():
-    title = "Kekambas Blog | MY INFO"
+    title = "Improv | MY INFO"
     return render_template('my_info.html', title=title)
