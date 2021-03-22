@@ -4,3 +4,5 @@ SP
 __pycache__/
 migrations
 
+env/
+migrations/
